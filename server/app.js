@@ -1,8 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+
 const ConnectDb = require('./config/db');
-// const router = require('./router/index')
+const routes = require('./routes')
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(bodyParser.json());
 
 const port = process.env.PORT || 6000
 
+app.use('/api', routes)
 
 // instantiate Connected Db
 ConnectDb.sequelize
@@ -27,11 +29,11 @@ ConnectDb.sequelize
 // Listen to port
 try {
 
-app.listen(port,()=>{
+  app.listen(port, () => {
     console.log(`server listening on ${port}`)
-})
+  })
 } catch (error) {
-    console.error({message: error});
+  console.error({ message: error });
 }
 
 
