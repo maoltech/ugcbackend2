@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const ConnectDb = require('./ConnectDb');
+const ConnectDb = require('../config/db');
 
 const service = ConnectDb.sequelize.define('Services', {
     id: {
@@ -28,4 +28,4 @@ const service = ConnectDb.sequelize.define('Services', {
     }
 });
 
-module.exports = service;
+module.exports = { service };

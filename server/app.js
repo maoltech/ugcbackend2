@@ -4,8 +4,14 @@ const bodyParser = require('body-parser');
 
 const ConnectDb = require('./config/db');
 const routes = require('./routes')
+const { User } = require('./model')
+const sequelize = require('./config/db')
+// const {sequelize} = require('sequelize')
 
 const app = express();
+const { runMigrations } = require('./config')
+
+runMigrations()
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -14,6 +20,8 @@ app.use(bodyParser.json());
 const port = process.env.PORT || 6000
 
 app.use('/api', routes)
+
+
 
 // instantiate Connected Db
 ConnectDb.sequelize
