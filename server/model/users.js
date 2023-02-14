@@ -1,6 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const { sequelize } = require('../config/db')
 const { v4: uuidv4 } = require('uuid');
+const bcrypt = require('bcrypt');
 
 class User extends Model {}
 User.init({
@@ -38,5 +39,9 @@ User.init({
   modelName: 'User'
 });
 
+User.prototype.checkPassword = async function (password) {
+  const match = await bcrypt.compare(password, this.password);
+  return match;
+};
 
 module.exports = { User };

@@ -1,7 +1,12 @@
 const router = require('express').Router()
 
-const  usersController  = require('../controllers/users.controller')
+const authController = require('../controllers/auth.controller')
 
-router.post('/signup', usersController.signup)
+
+router.post('/signup', authController.signup)
+router.post(
+    '/login',
+    authController.login
+)
 
 module.exports = router
