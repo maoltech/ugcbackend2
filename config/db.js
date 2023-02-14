@@ -8,8 +8,8 @@ const ConnectDb = {
     process.env.DB_NAME, 
     process.env.DB_USERNAME, 
     process.env.DB_PASSWORD, {
-    host: 'localhost',
-    dialect: 'mysql',
+    host: process.env.DB_LOCALHOST,
+    dialect: process.env.DB_DIALECT,
     pool: {
       max: 5,
       min: 0,
