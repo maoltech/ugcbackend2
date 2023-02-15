@@ -1,3 +1,5 @@
-const runMigrations = require('./runMigrations');
+const { runMigrations } = require('./runMigrations');
+const { passportStrategySetup }  = require('./passport')
 
-module.exports = runMigrations;
+
+module.exports = { runMigrations, passportStrategySetup };

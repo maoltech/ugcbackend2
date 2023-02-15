@@ -46,7 +46,10 @@ const jwtStrategy = new JwtStrategy(jwtOptions, (payload, done) => {
 }
 );
 
-module.exports = passport => {
+
+const passportStrategySetup = passport => {
     passport.use("local", localStrategy);
     passport.use("jwt", jwtStrategy);
 };
+
+module.exports = { passportStrategySetup }

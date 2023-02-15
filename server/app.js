@@ -6,17 +6,16 @@ const dotenv = require('dotenv')
 
 const ConnectDb = require('./config/db');
 const routes = require('./routes')
-const passportStrategySetup = require('./controllers/passport.auth')
-
-dotenv.config()
+const { passportStrategySetup } = require('./config')
+const { runMigrations } = require('./config')
 
 const app = express();
-const { runMigrations } = require('./config')
+
+dotenv.config()
 
 runMigrations()
 
 
-app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
 
