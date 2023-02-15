@@ -1,7 +1,7 @@
 const router = require('express').Router()
 
 const authController = require('../controllers/auth.controller')
-const passport = require('passport');
+const { passportJWTAuth } = require('../middleware');
 
 
 router.post('/signup', authController.signup)
@@ -12,7 +12,7 @@ router.post(
 
 router.get(
     '/user/me',
-    passport.authenticate("jwt", { session: false }),
+    passportJWTAuth(),
     (req, res) => {
         res.json('my profile')
     }
