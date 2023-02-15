@@ -30,11 +30,12 @@ const localStrategy = new LocalStrategy(
 
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    // jwtFromRequest: ExtractJwt.fromHeader("authorization"),
     secretOrKey: process.env.JWT_SECRET,
 };
 
 const jwtStrategy = new JwtStrategy(jwtOptions, (payload, done) => {
-    User.findByPk(payload.sub)
+    User.findOne({ where: { userId: payload.userId } })
         .then(user => {
             if (!user) {
                 return done(null, false);

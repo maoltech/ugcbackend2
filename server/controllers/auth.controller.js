@@ -2,16 +2,16 @@ const bcrypt = require('bcrypt');
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 
-const {User } = require('../model')
+const { User } = require('../model')
 
 
 const signup = async (req, res) => {
   try {
     const { firstName, lastName, username, email, password } = req.body;
-    
-  
+
+
     const hashedPassword = await bcrypt.hash(password, 10);
-  
+
     const user = await User.create({
       firstName,
       lastName,
@@ -19,7 +19,7 @@ const signup = async (req, res) => {
       email,
       password: hashedPassword
     });
-  
+
     res.status(201).json({
       message: 'User created successfully',
       user
@@ -41,10 +41,11 @@ const login = (req, res, next) => {
     if (!user) {
       return res.status(401).json({ message: info.message });
     }
-    const payload = { sub: user.userId };
-    // const payload = { id: user.id, email: user.email };;
-    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
-    res.json({Message:'Signed in', token: 'bearer ' + token, user });
+    const payload = { userId: user.userId, email: user.email };;
+    const token = jwt.sign(
+      payload, process.env.JWT_SECRET, { expiresIn: "1h" }
+    );
+    res.json({ Message: 'Signed in', token: `Bearer ${token}`, user });
   })(req, res, next);
 };
 
