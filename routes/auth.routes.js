@@ -15,13 +15,9 @@ router.get('/google',
 );
 
 
-router.get('/google/callback',
-    passport.authenticate('google', { session: false }),
-    function (req, res) {
-        // Successful authentication, redirect to user's profile page.
-        res.send('comepleted');
-    }
-);
+router.get('/google/callback', authController.handleGoogleCallback);
+
+
 
 router.get(
     '/user/me',

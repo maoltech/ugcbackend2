@@ -54,9 +54,6 @@ const googleStrategy = new GoogleStrategy({
     clientSecret: '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',
     callbackURL: "http://localhost:4000/api/auth/google/callback",
 }, async (accessToken, refreshToken, profile, done) => {
-    console.log("user profile is: ", profile)
-    console.log({accessToken})
-    console.log({refreshToken})
     User.findOne({ where: { email: profile.emails[0].value } })
         .then(user => {
             if (user) {
@@ -67,7 +64,7 @@ const googleStrategy = new GoogleStrategy({
                 User.create({
                     firstName: profile.name.givenName,
                     lastName: profile.name.familyName,
-                    username: displayName,
+                    username: profile.displayName,
                     email: profile.emails[0].value,
                     password: ''
                 })
@@ -83,6 +80,7 @@ const googleStrategy = new GoogleStrategy({
             done(err, null);
         });
 })
+
 
 const passportStrategySetup = passport => {
     passport.use("local", localStrategy);
