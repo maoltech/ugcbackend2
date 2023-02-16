@@ -52,10 +52,12 @@ const jwtStrategy = new JwtStrategy(jwtOptions, (payload, done) => {
 const googleStrategy = new GoogleStrategy({
     clientID: '550594748551-25fipj3dp7ruoo7bh217e9ep7i8oookq.apps.googleusercontent.com',
     clientSecret: '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',
-    callbackURL: "http://localhost:6000/api/auth/google/callback",
+    callbackURL: "http://localhost:4000/api/auth/google/callback",
 }, async (accessToken, refreshToken, profile, done) => {
     console.log("user profile is: ", profile)
-    User.findOne({ where: { userId: profile.userId } })
+    console.log({accessToken})
+    console.log({refreshToken})
+    User.findOne({ where: { email: profile.emails[0].value } })
         .then(user => {
             if (user) {
                 // If the user already exists, return the user
@@ -65,7 +67,9 @@ const googleStrategy = new GoogleStrategy({
                 User.create({
                     firstName: profile.name.givenName,
                     lastName: profile.name.familyName,
+                    username: displayName,
                     email: profile.emails[0].value,
+                    password: ''
                 })
                     .then(newUser => {
                         done(null, newUser);

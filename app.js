@@ -19,7 +19,7 @@ runMigrations()
 app.use(cors());
 app.use(bodyParser.json());
 
-const port = process.env.PORT || 6000
+const port = process.env.PORT || 4000
 
 // Passport.js 
 app.use(passport.initialize());
