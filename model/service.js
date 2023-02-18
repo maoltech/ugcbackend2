@@ -7,6 +7,10 @@ const service = ConnectDb.sequelize.define('Services', {
       primaryKey: true,
       autoIncrement: true
     },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     title: {
       type: DataTypes.STRING,
       allowNull: false
@@ -15,10 +19,31 @@ const service = ConnectDb.sequelize.define('Services', {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    url: {
+    videoURL: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    clickCount:{
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    reviewCount:{
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    tags:{
+      type: DataTypes.ARRAY,
+      allowNull: false
+    },
+    star:{
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    artistName:{
       type: DataTypes.STRING,
       allowNull: false
     }
+
     // userId: {
     //   type: DataTypes.INTEGER,
     //   references: {
