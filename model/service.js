@@ -19,7 +19,7 @@ const service = ConnectDb.sequelize.define('Services', {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    videoURL: {
+    mainVideoURL: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -32,8 +32,38 @@ const service = ConnectDb.sequelize.define('Services', {
       allowNull: false
     },
     tags:{
-      type: DataTypes.ARRAY,
+      type: DataTypes.JSON,
       allowNull: false
+    },
+    packages:{
+      type: DataTypes.JSON,
+      packageTitle:{
+        type: DataTypes.STRING
+      },
+      packageDescription:{
+        type: DataTypes.STRING
+      },
+      serviceOffered:{
+        type: DataTypes.JSON
+      },
+      deliveryDetails:{
+        type: DataTypes.STRING
+      },
+      providingScript:{
+        type: DataTypes.BOOLEAN
+      },
+      numberOfVideos:{
+        type: DataTypes.INTEGER
+      },
+      numberOfPhotos:{
+        type: DataTypes.INTEGER
+      },
+      timeOfVideos:{
+        type: DataTypes.STRING
+      },
+      packagePrice:{
+        type: DataTypes.INTEGER
+      }
     },
     star:{
       type: DataTypes.INTEGER,
@@ -42,7 +72,34 @@ const service = ConnectDb.sequelize.define('Services', {
     artistName:{
       type: DataTypes.STRING,
       allowNull: false
+    },
+    serviceDescription:{
+      type: DataTypes.TEXT
+    },
+    FAQ:{
+      type: DataTypes.JSON,
+       question:{
+        type: DataTypes.STRING
+       },
+       answer:{
+        type: DataTypes.TEXT
+       }
+    },
+    images:{
+      type: DataTypes.JSON,
+      imageURL:
+      {
+        type: DataTypes.STRING
+      }
+    },
+    videos:{
+      type: DataTypes.JSON,
+      videoURL:
+      {
+        type: DataTypes.STRING
+      }
     }
+
 
     // userId: {
     //   type: DataTypes.INTEGER,

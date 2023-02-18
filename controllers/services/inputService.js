@@ -12,7 +12,7 @@ const inputService = async(req,res) =>{
     const videoURL = req.body.videoURL
     const username = userInfo.username
     const userId = userInfo.userId
-    
+
 try {
     const newUser = await service.create(
         {   
@@ -20,7 +20,7 @@ try {
             title,
             description,
             videoURL,
-            userId
+            userId,
         }
     )
 
