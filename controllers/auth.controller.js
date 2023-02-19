@@ -6,10 +6,15 @@ const { User } = require('../model')
 
 
 const signup = async (req, res) => {
+  const { firstName, lastName, username, email, password } = req.body;
+
+  const emailIsUsed = await User.findOne({ where: { email } })
+  if (emailIsUsed) { return res.status(401).json('Email has already been used') }
+
+  const usernameIsTaken = await User.findOne({ where: { username } })
+  if (usernameIsTaken) { return res.status(401).json('Username has already been taken') }
+
   try {
-    const { firstName, lastName, username, email, password } = req.body;
-
-
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
@@ -64,8 +69,8 @@ const handleGoogleCallback = (req, res, next) => {
     res.status(200).json({
       message: 'Authentication successful',
       token: `Bearer ${token}`,
-      user: { 
-        firstName: user.firstName, 
+      user: {
+        firstName: user.firstName,
         lastName: user.lastName,
         username: user.username
       } // replace with the appropriate fields from the user object
