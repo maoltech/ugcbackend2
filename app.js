@@ -3,6 +3,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const passport = require('passport')
 const dotenv = require('dotenv')
+const session = require('express-session');
+const cookieParser = require('cookie-parser')
 
 const ConnectDb = require('./config/db');
 const routes = require('./routes')
@@ -15,18 +17,41 @@ dotenv.config()
 
 runMigrations()
 
-
 app.use(cors());
+
+// app.use(cookieParser())
 app.use(bodyParser.json());
 
-const port = process.env.PORT || 4000
+
+app.use(session({
+  secret: 'my-secret-key',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
 
 // Passport.js 
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (obj, done) {
+  done(null, obj);
+});
+
 app.use(passport.initialize());
+app.use(passport.session());
 passportStrategySetup(passport)
 
-app.use('/api', routes)
 
+app.use(function (req, res, next) {
+  console.log(req.session);
+  console.log(req.sessionID);
+  next();
+});
+
+
+app.use('/api', routes)
 
 
 // instantiate Connected Db
@@ -39,6 +64,8 @@ ConnectDb.sequelize
     console.error('Unable to connect to the database:', err);
   });
 
+
+const port = process.env.PORT || 4000
 
 // Listen to port
 try {
