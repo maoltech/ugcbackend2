@@ -44,11 +44,11 @@ app.use(passport.session());
 passportStrategySetup(passport)
 
 
-app.use(function (req, res, next) {
-  console.log(req.session);
-  console.log(req.sessionID);
-  next();
-});
+// app.use(function (req, res, next) {
+//   console.log(req.session);
+//   console.log(req.sessionID);
+//   next();
+// });
 
 
 app.use('/api', routes)

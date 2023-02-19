@@ -24,7 +24,6 @@ User.init({
   },
   email: {
     type: DataTypes.STRING,
-    allowNull: false,
     unique: true,
     validate: {
       isEmail: true
@@ -33,6 +32,10 @@ User.init({
   password: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  twitterId: {
+    type: DataTypes.STRING,
+    unique: true
   }
 }, {
   sequelize,

@@ -105,36 +105,33 @@ const twitterStrategy = new TwitterStrategy({
     clientSecret: process.env.TWITTER_CLIENT_SECRET,
     callbackURL: 'http://localhost:4000/api/auth/twitter/callback'
 }, async (token, tokenSecret, profile, done) => {
-    // User.findOne({ where: { email: profile.emails[0].value } })
-    //     .then(user => {
-    //         if (user) {
-    //             // If the user already exists, return the user
-    //             done(null, user);
-    //         } else {
-    //             // If the user doesn't exist, create a new user and return it
-    //             User.create({
-    //                 firstName: profile.name.givenName,
-    //                 lastName: profile.name.familyName,
-    //                 username: profile.displayName,
-    //                 email: profile.emails[0].value,
-    //                 password: ''
-    //             })
-    //                 .then(newUser => {
-    //                     done(null, newUser);
-    //                 })
-    //                 .catch(err => {
-    //                     done(err, null);
-    //                 });
-    //         }
-    //     })
-    //     .catch(err => {
-    //         done(err, null);
-    //     });
-    console.log({profile: profile.id})
-    return done(null, profile)
+    User.findOne({ where: { twitterId: profile._json.id_str } })
+        .then(user => {
+            if (user) {
+                // If the user already exists, return the user
+                console.log('Fetched user')
+                done(null, user);
+            } else {
+                // If the user doesn't exist, create a new user and return it
+                User.create({
+                    firstName: profile._json.name,
+                    lastName: profile._json.name,
+                    username: profile._json.screen_name,
+                    password: '',
+                    twitterId: profile._json.id_str
+                })
+                    .then(newUser => {
+                        done(null, newUser);
+                    })
+                    .catch(err => {
+                        done(err, null);
+                    });
+            }
+        })
+        .catch(err => {
+            done(err, null);
+        });
 })
-
-
 
 
 
