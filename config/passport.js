@@ -54,7 +54,7 @@ const jwtStrategy = new JwtStrategy(jwtOptions, (payload, done) => {
 const googleStrategy = new GoogleStrategy({
     clientID: '550594748551-25fipj3dp7ruoo7bh217e9ep7i8oookq.apps.googleusercontent.com',
     clientSecret: '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',
-    callbackURL: "http://localhost:4000/api/auth/google/callback",
+    callbackURL: "http://localhost:3000/api/auth",
 }, async (accessToken, refreshToken, profile, done) => {
     User.findOne({ where: { email: profile.emails[0].value } })
         .then(user => {
