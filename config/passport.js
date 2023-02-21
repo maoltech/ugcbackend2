@@ -54,7 +54,7 @@ const jwtStrategy = new JwtStrategy(jwtOptions, (payload, done) => {
 const googleStrategy = new GoogleStrategy({
     clientID: '550594748551-25fipj3dp7ruoo7bh217e9ep7i8oookq.apps.googleusercontent.com',
     clientSecret: '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',
-    callbackURL: "http://localhost:3000/api/auth",
+    callbackURL: process.env.GOOGLE_CALLBACK_URL || "http://localhost:4000/api/auth/google/callback"
 }, async (accessToken, refreshToken, profile, done) => {
     User.findOne({ where: { email: profile.emails[0].value } })
         .then(user => {
@@ -103,7 +103,7 @@ const twitterStrategy = new TwitterStrategy({
     consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
     clientID: process.env.TWITTER_CLIENT_ID,
     clientSecret: process.env.TWITTER_CLIENT_SECRET,
-    callbackURL: 'http://localhost:4000/api/auth/twitter/callback'
+    callbackURL: process.env.TWITTER_CALLBACK_URL || 'http://localhost:4000/api/auth/twitter/callback'
 }, async (token, tokenSecret, profile, done) => {
     User.findOne({ where: { twitterId: profile._json.id_str } })
         .then(user => {
