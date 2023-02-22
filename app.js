@@ -15,9 +15,10 @@ const app = express();
 
 dotenv.config()
 
+app.use(cors({origin: '*'}));
+
 runMigrations()
 
-app.use(cors());
 
 // app.use(cookieParser())
 app.use(bodyParser.json());
