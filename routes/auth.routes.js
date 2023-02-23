@@ -14,7 +14,6 @@ router.get('/google',
     passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 
-
 router.get('/google/callback', authController.handleGoogleCallback);
 
 router.get('/twitter', passport.authenticate(

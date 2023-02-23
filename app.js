@@ -5,30 +5,45 @@ const passport = require('passport')
 const dotenv = require('dotenv')
 const session = require('express-session');
 const cookieParser = require('cookie-parser')
+const cookieSession = require('cookie-session');
+
 
 const ConnectDb = require('./config/db');
 const routes = require('./routes')
 const { passportStrategySetup } = require('./config')
-const { runMigrations } = require('./config')
+const { runMigrations } = require('./config');
 
 const app = express();
 
 dotenv.config()
 
-app.use(cors({origin: '*'}));
-
 runMigrations()
 
 
-// app.use(cookieParser())
 app.use(bodyParser.json());
 
+// app.use(cookieSession({
+//   name: "session",
+//   keys: ['cookie-keys'],
+//   maxAge: 24 * 60 * 60 * 100
+// }))
 
 app.use(session({
   secret: 'my-secret-key',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }
+  cookie: {
+    secure: false, // set to true if your app uses HTTPS
+    maxAge: 24 * 60 * 60 * 1000 // session duration in milliseconds
+  }
+}));
+
+app.use(cookieParser())
+
+app.use(cors({
+  origin: 'http://localhost:3000/',
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true 
 }));
 
 // Passport.js 
@@ -45,11 +60,11 @@ app.use(passport.session());
 passportStrategySetup(passport)
 
 
-// app.use(function (req, res, next) {
-//   console.log(req.session);
-//   console.log(req.sessionID);
-//   next();
-// });
+app.use(function (req, res, next) {
+  console.log({session: req.session});
+  console.log({cookies: req.cookies});
+  next();
+});
 
 
 app.use('/api', routes)
