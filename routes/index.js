@@ -5,6 +5,6 @@ const userRoutes = require('./users.routes')
 
 // router.use('/service', service)
 router.use('/auth', authRoutes)
-.use('/auth', userRoutes)
+.use('/users', userRoutes)
 
 module.exports = router;
