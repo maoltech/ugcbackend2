@@ -79,4 +79,27 @@ const handleGoogleCallback = (req, res, next) => {
 };
 
 
-module.exports = { signup, login, handleGoogleCallback };
+const handleTwitterCallback = (req, res, next) => {
+  passport.authenticate(
+    'twitter',
+    (err, user, info) => {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        return res.status(401).json({ message: info.message });
+      }
+      const payload = { userId: user.userId, email: user.email };
+      const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+      res.cookie('token', token, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 3600000, // 1 hour
+        sameSite: 'none'
+      }).redirect("http://localhost:3000");
+    })(req, res, next);
+};
+
+
+module.exports = { signup, login, handleGoogleCallback, handleTwitterCallback };

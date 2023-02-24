@@ -21,16 +21,7 @@ router.get('/twitter', passport.authenticate(
     { scope: ['tweet.read', 'users.read', 'offline.access'] })
 )
 
-router.get(
-    '/twitter/callback',
-    passport.authenticate('twitter'),
-    // (req, res) => {res.status(200).json(req.user)}
-    function(req, res) {
-        res.status(200).json(req.user);
-      }
-)
-
-
+router.get('/twitter/callback', authController.handleTwitterCallback)
 
 router.get(
     '/user/me',
