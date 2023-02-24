@@ -69,7 +69,7 @@ const handleGoogleCallback = (req, res, next) => {
       const payload = { userId: user.userId, email: user.email };
       const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-      res.cookie('token', token, {
+      res.cookie('accessToken', token, {
         httpOnly: true,
         secure: true,
         maxAge: 3600000, // 1 hour
@@ -92,7 +92,7 @@ const handleTwitterCallback = (req, res, next) => {
       const payload = { userId: user.userId, email: user.email };
       const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-      res.cookie('token', token, {
+      res.cookie('accessToken', token, {
         httpOnly: true,
         secure: true,
         maxAge: 3600000, // 1 hour

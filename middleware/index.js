@@ -1,3 +1,3 @@
-const { passportJWTAuth } = require('./auth.middleware')
+const { passportJWTAuth, authMiddleware } = require('./auth.middleware')
 
-module.exports = {passportJWTAuth}
+module.exports = {passportJWTAuth, authMiddleware}

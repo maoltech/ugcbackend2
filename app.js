@@ -60,11 +60,11 @@ app.use(passport.session());
 passportStrategySetup(passport)
 
 
-app.use(function (req, res, next) {
-  console.log({session: req.session});
-  console.log({cookies: req.cookies});
-  next();
-});
+// app.use(function (req, res, next) {
+//   console.log({session: req.session});
+//   console.log({cookies: req.cookies});
+//   next();
+// });
 
 
 app.use('/api', routes)
