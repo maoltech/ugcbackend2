@@ -26,7 +26,13 @@ const signup = async (req, res) => {
       password: hashedPassword
     });
 
-    res.status(201).json({
+    res.cookie('accessToken', token, {
+      httpOnly: true,
+      secure: true,
+      maxAge: 3600000, // 1 hour
+      sameSite: 'none'
+    }).
+    status(201).json({
       message: 'User created successfully',
       user
     });
@@ -40,7 +46,7 @@ const signup = async (req, res) => {
 
 
 const login = (req, res, next) => {
-  passport.authenticate("local", { session: false }, (err, user, info) => {
+  passport.authenticate("local",{session:false}, (err, user, info) => {
     if (err) {
       return next(err);
     }
@@ -51,7 +57,14 @@ const login = (req, res, next) => {
     const token = jwt.sign(
       payload, process.env.JWT_SECRET, { expiresIn: "1h" }
     );
-    res.json({ Message: 'Signed in', token: `Bearer ${token}`, user });
+    res.cookie('accessToken', token, {
+      httpOnly: true,
+      secure: true,
+      maxAge: 3600000, // 1 hour
+      sameSite: 'none'
+    })
+    .json({ Message: 'Signed in', token: `Bearer ${token}`, user });
+   
   })(req, res, next);
 };
 
