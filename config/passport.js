@@ -5,15 +5,18 @@ const LocalStrategy = require("passport-local").Strategy,
     TwitterStrategy = require('passport-twitter').Strategy,
     { Strategy } = require('@superfaceai/passport-twitter-oauth2');
 
+const { Op } = require('sequelize');
 
 const { User } = require('../model');
 
 
 const localStrategy = new LocalStrategy(
-    { usernameField: "email" },
-    async (email, password, done) => {
+    { usernameField: "login" },
+    async (login, password, done) => {
         try {
-            const user = await User.findOne({ where: { email } })
+            const user = await User.findOne({
+                where: { [Op.or]: [{ email: login }, { username: login }] }
+            })
 
             if (!user) {
                 return done(null, false, {
