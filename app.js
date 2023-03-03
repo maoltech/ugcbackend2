@@ -27,6 +27,10 @@ app.use(bodyParser.json());
 //   keys: ['cookie-keys'],
 //   maxAge: 24 * 60 * 60 * 100
 // }))
+app.use(cors({
+  credentials: trye,
+  origin: ['http://localhost:3000', 'http://localhost:3001', 'https://main--gorgeous-licorice-f8928c.netlify.app']
+}));
 
 app.use(session({
   secret: 'my-secret-key',
@@ -40,9 +44,18 @@ app.use(session({
 
 app.use(cookieParser())
 
-app.use(cors({
-  origin: '*'
-}));
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
+
+
+
+
 
 // Passport.js 
 passport.serializeUser(function (user, done) {
