@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 });
 
 app.use(cors({
-  credentials: trye,
+  credentials: true,
   origin: ['http://localhost:3000', 'http://localhost:3001', 'https://main--gorgeous-licorice-f8928c.netlify.app']
 }));
 
