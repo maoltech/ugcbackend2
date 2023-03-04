@@ -42,8 +42,8 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: {
-    secure: false, // set to true if your app uses HTTPS
-    maxAge: 24 * 60 * 60 * 1000 // session duration in milliseconds
+    secure: false, 
+    maxAge: 24 * 60 * 60 * 1000 
   }
 }));
 
@@ -57,9 +57,6 @@ app.use(cookieParser())
 //   );
 //   next();
 // });
-
-
-
 
 
 // Passport.js 

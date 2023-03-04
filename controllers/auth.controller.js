@@ -26,10 +26,14 @@ const signup = async (req, res) => {
       password: hashedPassword
     });
 
+    const token = jwt.sign(
+      req.body, process.env.JWT_SECRET, { expiresIn: "1h" }
+    );
+
     res.cookie('accessToken', token, {
       httpOnly: true,
       secure: true,
-      maxAge: 3600000, // 1 hour
+      maxAge: 3600000,
       sameSite: 'none'
     }).
     status(201).json({
@@ -38,7 +42,7 @@ const signup = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({
-      message: 'Error creating user',
+      message: `Error creating user: ${error}`,
       error
     });
   }
