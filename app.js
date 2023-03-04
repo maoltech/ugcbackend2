@@ -27,14 +27,14 @@ app.use(bodyParser.json());
 //   keys: ['cookie-keys'],
 //   maxAge: 24 * 60 * 60 * 100
 // }))
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader('Access-Control-Allow-Origin', '*');
+//   next();
+// });
 
 app.use(cors({
   credentials: true,
-  origin: ['http://localhost:3000', 'http://localhost:3001', 'https://main--gorgeous-licorice-f8928c.netlify.app']
+  origin: ['http://localhost:3000', 'http://localhost:3001', 'https://main--gorgeous-licorice-f8928c.netlify.app', 'https://6401c4d41bec43006d81aa04--gorgeous-licorice-f8928c.netlify.app']
 }));
 
 app.use(session({
