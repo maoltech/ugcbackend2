@@ -1,6 +1,6 @@
-const bcrypt = require("bcrypt");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const { User } = require("../model");
 
@@ -31,6 +31,21 @@ const signup = async (req, res) => {
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
+
+    // const token = jwt.sign(
+    //   req.body, process.env.JWT_SECRET, { expiresIn: "1h" }
+    // );
+
+    // res.cookie('accessToken', token, {
+    //   httpOnly: true,
+    //   secure: true,
+    //   maxAge: 3600000,
+    //   sameSite: 'none'
+    // }).
+    // status(201).json({
+    //   message: 'User created successfully',
+    //   user
+    // });
     res
       .cookie("accessToken", token, {
         httpOnly: true,
@@ -45,7 +60,7 @@ const signup = async (req, res) => {
       });
   } catch (error) {
     res.status(500).json({
-      message: "Error creating user",
+      message: `Error creating user: ${error}`,
       error,
     });
   }
