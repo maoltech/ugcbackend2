@@ -17,6 +17,7 @@ const localStrategy = new LocalStrategy(
         where: { [Op.or]: [{ email: login }, { username: login }] },
       });
       console.log(user, login);
+      // const user = await User.findOne({where: { [Op.or]: [{username:login}, {email:login}],password);
 
       if (!user) {
         return done(null, false, {

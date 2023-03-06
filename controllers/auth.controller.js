@@ -109,7 +109,9 @@ const handleGoogleCallback = (req, res, next) => {
         maxAge: 3600000, // 1 hour
         sameSite: "none",
       })
-      .redirect("http://localhost:3000");
+      .redirect(
+        "https://6401c4d41bec43006d81aa04--gorgeous-licorice-f8928c.netlify.app/services"
+      );
   })(req, res, next);
 };
 
@@ -133,7 +135,9 @@ const handleTwitterCallback = (req, res, next) => {
         maxAge: 3600000, // 1 hour
         sameSite: "none",
       })
-      .redirect("http://localhost:3000");
+      .redirect(
+        "https://6401c4d41bec43006d81aa04--gorgeous-licorice-f8928c.netlify.app/services"
+      );
   })(req, res, next);
 };
 
