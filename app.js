@@ -36,7 +36,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "http://localhost:3001",
-      "https://main--gorgeous-licorice-f8928c.netlify.app",
+      "https://frontend2--ugcreator.netlify.app/",
       "https://6401c4d41bec43006d81aa04--gorgeous-licorice-f8928c.netlify.app",
     ],
   })
